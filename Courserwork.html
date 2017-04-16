@@ -124,14 +124,31 @@ $(document).ready(function () {
 </div>
 
 
+<pre class="r"><code>training &lt;- read.csv(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;)
+testing &lt;- read.csv(&quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;)
+
+install.packages(&quot;caret&quot;, repo = &quot;https://cran.r-project.org&quot;); library(caret)</code></pre>
 <pre><code>## 
 ## The downloaded binary packages are in
-##  /var/folders/zm/j0sqzj8n1zld752bhqfflylc0000gn/T//RtmpdSn1xt/downloaded_packages</code></pre>
+##  /var/folders/zm/j0sqzj8n1zld752bhqfflylc0000gn/T//Rtmpn0BU2t/downloaded_packages</code></pre>
+<pre><code>## Loading required package: lattice</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre class="r"><code>install.packages(&quot;randomForest&quot;, repo = &quot;https://cran.r-project.org&quot;); library(randomForest)</code></pre>
 <pre><code>## 
 ## The downloaded binary packages are in
-##  /var/folders/zm/j0sqzj8n1zld752bhqfflylc0000gn/T//RtmpdSn1xt/downloaded_packages</code></pre>
+##  /var/folders/zm/j0sqzj8n1zld752bhqfflylc0000gn/T//Rtmpn0BU2t/downloaded_packages</code></pre>
+<pre><code>## randomForest 4.6-12</code></pre>
+<pre><code>## Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>## 
+## Attaching package: 'randomForest'</code></pre>
+<pre><code>## The following object is masked from 'package:ggplot2':
+## 
+##     margin</code></pre>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+<p>This is a Write-Up report for Coursera Practical Machine Learning (from Data Science specialization) Peer-Reviewed Assessment. The aim of this project is to analysis the training dataset and create a prediction model in how well the user has performed the Unilateral Dumbbell Biceps Curl by using the sensors.</p>
+<p>Each class (<code>classe</code> in the datasets) indicates different classes of “how-well” the participants have performed the bicep curls. - Class A: exactly according to the specification - Class B: throwing the elbows to the front - Class C: lifting the dumbbell only halfway - Class D: lowering the dumbbell only halfway - Class E: throwing the hips to the front</p>
+<p>Read more: <a href="http://groupware.les.inf.puc-rio.br/har#ixzz4eRMLOkyO" class="uri">http://groupware.les.inf.puc-rio.br/har#ixzz4eRMLOkyO</a></p>
 </div>
 <div id="method" class="section level2">
 <h2>Method</h2>
@@ -215,17 +232,14 @@ subTest &lt;- newTrain[-inTrain, ]</code></pre>
 <div id="model-selection-and-cross-validation" class="section level3">
 <h3>Model Selection and Cross Validation</h3>
 <p>In this analysis, two prediction modelling were used, random forest (RF) and linear discriminant analysis (LDA). RF was chosen to represent the machine learning algorithm for classification, and LDA was chosen to represent the machine learning algorithm for linear combination and pattern recognition. With 5-fold cross validation, the out of sample error rate for RF are much smaller than that of LDA (accuracy are approximately 0.99 and 0.7 respectively, see code and result in appendix). Hence, the model selected here is RF.</p>
-<p>The out of sample error is approximately <code>outSmpEr</code> for the random forest model.</p>
+<p>The out of sample error is approximately 0.0057354 for the random forest model.</p>
 </div>
 </div>
 <div id="result" class="section level2">
 <h2>Result</h2>
 <pre class="r"><code>finalMdl &lt;- randomForest(classe ~ ., data = newTrain, method = &quot;class&quot;)
-prediction &lt;- predict(finalMdl, testing)
-prediction</code></pre>
-<pre><code>##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 
-##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 
-## Levels: A B C D E</code></pre>
+prediction &lt;- predict(finalMdl, testing)</code></pre>
+<p>The predictions for the testing dataset are B, A, B, A, A, E, D, B, A, A, B, C, B, A, E, E, A, B, B, B.</p>
 </div>
 <div id="appendix" class="section level2">
 <h2>Appendix</h2>
