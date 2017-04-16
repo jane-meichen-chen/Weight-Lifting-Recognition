@@ -1,9 +1,7 @@
----
-title: "Weight Lifting Exercises - \"How Well\" Recognition"
-author: "Jane Chen"
-date: "April 12, 2017"
-output: html_document
----
+# Weight Lifting Exercises - \"How Well\" Recognition
+Author: Jane Chen
+
+Date: April 12, 2017
 
 ```{r dataLoading}
 training <- read.csv("https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv")
