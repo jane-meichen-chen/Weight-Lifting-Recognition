@@ -14,6 +14,16 @@ install.packages("randomForest", repo = "https://cran.r-project.org"); library(r
 ```
 
 ## Introduction
+This is a Write-Up report for Coursera Practical Machine Learning (from Data Science specialization) Peer-Reviewed Assessment. The aim of this project is to analysis the training dataset and create a prediction model in how well the user has performed the Unilateral Dumbbell Biceps Curl by using the sensors. 
+
+Each class (`classe` in the datasets) indicates different classes of "how-well" the participants have performed the bicep curls. 
+- Class A: exactly according to the specification
+- Class B: throwing the elbows to the front
+- Class C: lifting the dumbbell only halfway
+- Class D: lowering the dumbbell only halfway
+- Class E: throwing the hips to the front
+
+Read more: http://groupware.les.inf.puc-rio.br/har#ixzz4eRMLOkyO
 
 ## Method
 ```{r dataProcessing, results = FALSE, message = FALSE,warning = FALSE}
@@ -88,14 +98,14 @@ acc <- confusionMatrix(pred_rf, subTest$classe)$overall[1]
 outSmpEr <- 1 - acc
 ```
 
-The out of sample error is approximately `outSmpEr` for the random forest model. 
+The out of sample error is approximately `r outSmpEr` for the random forest model. 
 
 ## Result
 ```{r prediction}
 finalMdl <- randomForest(classe ~ ., data = newTrain, method = "class")
 prediction <- predict(finalMdl, testing)
-prediction
 ```
+The predictions for the testing dataset are `r prediction`. 
 
 ## Appendix
 ### 5-Fold Cross Validation for Random Forest Prediction
